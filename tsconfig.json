@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "noEmit": true, // Recommended by AWS: https://docs.aws.amazon.com/lambda/latest/dg/lambda-typescript.html
+    "sourceMap": false, // Recommended by AWS
+    "preserveConstEnums": true, // Recommended by AWS
+    "removeComments": true, // Recommended by AWS
+    "forceConsistentCasingInFileNames": true, // Recommended by AWS
+    "declaration": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": false,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": [
+        "functions/shared/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "cdk.out"
+  ]
+}

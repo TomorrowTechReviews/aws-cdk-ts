@@ -1,3 +1,7 @@
+#
+# Node.js
+#
+
 # Logs
 logs
 *.log
@@ -128,3 +132,16 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# 
+# AWS CDK
+# 
+
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
