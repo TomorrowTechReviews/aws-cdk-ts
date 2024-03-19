@@ -10,12 +10,25 @@
 - API Gateway HTTP
 - Lambda
 
+## 🚀 Deployment
+
+```bash
+npm i -g aws-cdk
+npm i
+cdk bootstrap
+cdk deploy vpc
+cdk deploy acm
+cdk deploy cognito
+cdk deploy db
+cdk deploy api
+```
+
 ## Getting Started
 
 1. Install AWS CDK
 
    ```bash
-   npm install -g aws-cdk
+   npm i -g aws-cdk
    cdk --version
    ```
 
