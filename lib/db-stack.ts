@@ -61,7 +61,6 @@ export class DbStack extends Stack {
       publiclyAccessible: false,
       instanceIdentifier: 'writer',
       instanceType: writerInstanceType,
-      enablePerformanceInsights: true,
     });
 
     const readerInstances = [
@@ -69,7 +68,6 @@ export class DbStack extends Stack {
         publiclyAccessible: false,
         instanceIdentifier: 'reader',
         instanceType: readerInstanceType,
-        enablePerformanceInsights: true,
       }),
     ];
 
