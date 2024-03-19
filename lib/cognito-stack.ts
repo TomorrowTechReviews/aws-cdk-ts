@@ -2,10 +2,8 @@ import { Stack, StackProps, aws_cognito as cognito, } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Parameters } from '../helpers'
 
-interface CognitoStackProps extends StackProps { }
-
 export class CognitoStack extends Stack {
-  constructor(scope: Construct, id: string, props: CognitoStackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const userPool = this.createUserPool();
