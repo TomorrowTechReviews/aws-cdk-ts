@@ -26,7 +26,7 @@ const envUS = { region: 'us-east-1', account: CDK_DEFAULT_ACCOUNT };
  */
 const app = new cdk.App();
 
-// const vpc = new VpcStack(app, 'vpc', { env: envEU, natGateways: isProduction ? 2 : 1 });
+const vpc = new VpcStack(app, 'vpc', { env: envEU, natGateways: isProduction ? 2 : 1 });
 
 // new AcmStack(app, 'acm', { env: envEU, domainName, hostedZoneId });
 
