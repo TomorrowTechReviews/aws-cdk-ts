@@ -25,27 +25,28 @@ const envUS = { region: 'us-east-1', account: CDK_DEFAULT_ACCOUNT };
  * Create the stacks
  */
 const app = new cdk.App();
-const vpc = new VpcStack(app, 'vpc', { env: envEU, natGateways: isProduction ? 2 : 1 });
 
-new AcmStack(app, 'acm', { env: envEU, domainName, hostedZoneId });
+// const vpc = new VpcStack(app, 'vpc', { env: envEU, natGateways: isProduction ? 2 : 1 });
 
-new CognitoStack(app, 'cognito', { env: envEU });
+// new AcmStack(app, 'acm', { env: envEU, domainName, hostedZoneId });
 
-new DbStack(app, 'db', {
-  env: envEU,
-  vpc: vpc.vpc,
-  rdsSecretName: 'mainRdsSecret',
-  writerClass: isProduction ? ec2.InstanceClass.R5 : ec2.InstanceClass.T3,
-  writerSize: isProduction ? ec2.InstanceSize.LARGE : ec2.InstanceSize.MEDIUM,
-  readerClass: isProduction ? ec2.InstanceClass.R5 : ec2.InstanceClass.T3,
-  readerSize: isProduction ? ec2.InstanceSize.LARGE : ec2.InstanceSize.MEDIUM,
-});
+// new CognitoStack(app, 'cognito', { env: envEU });
 
-new ApiStack(app, 'api', {
-  env: envEU,
-  vpc: vpc.vpc,
-  rdsSecretName: 'mainRdsSecret',
-  subDomainName: apiSubDomainName,
-  domainName,
-  hostedZoneId,
-});
+// new DbStack(app, 'db', {
+//   env: envEU,
+//   vpc: vpc.vpc,
+//   rdsSecretName: 'mainRdsSecret',
+//   writerClass: isProduction ? ec2.InstanceClass.R5 : ec2.InstanceClass.T3,
+//   writerSize: isProduction ? ec2.InstanceSize.LARGE : ec2.InstanceSize.MEDIUM,
+//   readerClass: isProduction ? ec2.InstanceClass.R5 : ec2.InstanceClass.T3,
+//   readerSize: isProduction ? ec2.InstanceSize.LARGE : ec2.InstanceSize.MEDIUM,
+// });
+
+// new ApiStack(app, 'api', {
+//   env: envEU,
+//   vpc: vpc.vpc,
+//   rdsSecretName: 'mainRdsSecret',
+//   subDomainName: apiSubDomainName,
+//   domainName,
+//   hostedZoneId,
+// });
