@@ -1,7 +1,7 @@
 import { aws_ssm as ssm } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
-enum ParameterNames {
+export enum ParameterNames {
   cognitoUserPoolId = '/cognito/userPoolId',
   cognitoClientId = '/cognito/clientId',
   rdsProxyEndpoint = '/rds/proxy/endpoint',

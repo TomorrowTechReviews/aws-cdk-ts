@@ -1,2 +1,2 @@
 export { default as LambdaBuilder } from './lambdaBuilder';
-export { default as Parameters } from './parameters';
+export { default as Parameters, ParameterNames } from './parameters';
