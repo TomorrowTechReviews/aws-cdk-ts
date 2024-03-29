@@ -112,6 +112,10 @@ export class EcsStack extends Stack {
       family: serviceName,
       memoryLimitMiB: memory,
       cpu,
+      runtimePlatform: {
+        operatingSystemFamily: ecs.OperatingSystemFamily.LINUX,
+        cpuArchitecture: ecs.CpuArchitecture.ARM64,
+      }
     });
 
     taskDefinition.addToTaskRolePolicy(
