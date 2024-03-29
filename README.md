@@ -1,14 +1,28 @@
 # AWS CDK 2024
 
-## Case #1: Lambda Functions
+## Case #1: API Gateway + Lambda
 
-![Architecture](architecture.png)
+![AWS Lambda Architecture](architecture-1.png)
 
 - VPC + 3 subnets (public, private, isolated)
 - Cognito
 - RDS Aurora Postgres + Proxy
 - API Gateway HTTP
 - Lambda
+- Secrets Manager
+- SSM Parameter Store
+
+## Case #2: ECS Fargate Containers + ALB
+
+![AWS ECS Containers Architecture](architecture-2.png)
+
+- VPC + 3 subnets (public, private, isolated)
+- Cognito
+- RDS Aurora Postgres + Proxy
+- ALB
+- ECS + ECR
+- Secrets Manager
+- SSM Parameter Store
 
 ## 🚀 Deployment
 
