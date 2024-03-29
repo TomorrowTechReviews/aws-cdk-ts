@@ -7,6 +7,7 @@ import { AcmStack } from '../lib/acm-stack';
 import { CognitoStack } from '../lib/cognito-stack';
 import { DbStack } from '../lib/db-stack';
 import { ApiStack } from '../lib/api-stack';
+import { EcsStack } from '../lib/ecs-stack';
 
 const { CDK_DEFAULT_ACCOUNT } = process.env;
 
@@ -51,3 +52,11 @@ new DbStack(app, 'db', {
 //   hostedZoneId,
 // });
 
+new EcsStack(app, 'ecs', {
+  env: envEU,
+  vpc: vpc.vpc,
+  rdsSecretName: 'mainRdsSecret',
+  subDomainName: apiSubDomainName,
+  domainName,
+  hostedZoneId,
+});
