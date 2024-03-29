@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM public.ecr.aws/docker/library/python:3.9-slim
 WORKDIR /code
 
 # Copy just the requirements and install them. This caches the layer
