@@ -7,6 +7,7 @@ import { AcmStack } from '../lib/acm-stack';
 import { CognitoStack } from '../lib/cognito-stack';
 import { DbStack } from '../lib/db-stack';
 import { ApiStack } from '../lib/api-stack';
+import { EcsStack } from '../lib/ecs-stack';
 
 const { CDK_DEFAULT_ACCOUNT } = process.env;
 
@@ -26,7 +27,7 @@ const envUS = { region: 'us-east-1', account: CDK_DEFAULT_ACCOUNT };
  */
 const app = new cdk.App();
 
-const vpc = new VpcStack(app, 'vpc', { env: envEU, natGateways: isProduction ? 2 : 1 });
+// const vpc = new VpcStack(app, 'vpc', { env: envEU, natGateways: isProduction ? 2 : 1 });
 
 // new AcmStack(app, 'acm', { env: envEU, domainName, hostedZoneId });
 
@@ -43,6 +44,15 @@ const vpc = new VpcStack(app, 'vpc', { env: envEU, natGateways: isProduction ? 2
 // });
 
 // new ApiStack(app, 'api', {
+//   env: envEU,
+//   vpc: vpc.vpc,
+//   rdsSecretName: 'mainRdsSecret',
+//   subDomainName: apiSubDomainName,
+//   domainName,
+//   hostedZoneId,
+// });
+
+// new EcsStack(app, 'ecs', {
 //   env: envEU,
 //   vpc: vpc.vpc,
 //   rdsSecretName: 'mainRdsSecret',
