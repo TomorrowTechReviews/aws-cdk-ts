@@ -58,16 +58,18 @@ export class DbStack extends Stack {
     const readerInstanceType = ec2.InstanceType.of(readerClass, readerSize);
 
     const writerInstance = rds.ClusterInstance.provisioned('writer', {
-      publiclyAccessible: false,
+      publiclyAccessible: true, // ONLY FOR TESTING
       instanceIdentifier: 'writer',
       instanceType: writerInstanceType,
+      enablePerformanceInsights: false,
     });
 
     const readerInstances = [
       rds.ClusterInstance.provisioned('reader', {
-        publiclyAccessible: false,
+        publiclyAccessible: true, // ONLY FOR TESTING
         instanceIdentifier: 'reader',
         instanceType: readerInstanceType,
+        enablePerformanceInsights: false,
       }),
     ];
 
@@ -90,7 +92,7 @@ export class DbStack extends Stack {
       credentials,
       securityGroups: [rdsSecurityGroup],
       backup: { retention: Duration.days(7) },
-      deletionProtection: true,
+      deletionProtection: false, // ONLY FOR TESTING
       storageEncrypted: true,
     });
 
