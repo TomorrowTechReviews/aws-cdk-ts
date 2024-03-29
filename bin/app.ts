@@ -18,7 +18,7 @@ const PROD_ACCOUNT = '-'
 const isProduction = CDK_DEFAULT_ACCOUNT === PROD_ACCOUNT;
 const domainName = 'tomorrowtechreviews.com';
 const apiSubDomainName = 'api';
-const hostedZoneId = 'Z...';
+const hostedZoneId = 'Z02058223MDDK1KTRA4IA';
 const envEU = { region: 'eu-central-1', account: CDK_DEFAULT_ACCOUNT };
 const envUS = { region: 'us-east-1', account: CDK_DEFAULT_ACCOUNT };
 
