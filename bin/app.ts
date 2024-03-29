@@ -52,11 +52,11 @@ new DbStack(app, 'db', {
 //   hostedZoneId,
 // });
 
-// new EcsStack(app, 'ecs', {
-//   env: envEU,
-//   vpc: vpc.vpc,
-//   rdsSecretName: 'mainRdsSecret',
-//   subDomainName: apiSubDomainName,
-//   domainName,
-//   hostedZoneId,
-// });
+new EcsStack(app, 'ecs', {
+  env: envEU,
+  vpc: vpc.vpc,
+  rdsSecretName: 'mainRdsSecret',
+  subDomainName: apiSubDomainName,
+  domainName,
+  hostedZoneId,
+});
