@@ -149,6 +149,7 @@ export class EcsStack extends Stack {
         logRetention: 7
       }),
       portMappings: [{ containerPort }],
+      privileged: true,
     });
 
     const service = new ecs.FargateService(this, `${serviceName}Service`, {
