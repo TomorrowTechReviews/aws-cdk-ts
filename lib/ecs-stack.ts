@@ -150,7 +150,7 @@ export class EcsStack extends Stack {
         mode: ecs.AwsLogDriverMode.NON_BLOCKING,
         logRetention: 7
       }),
-      portMappings: [{ hostPort: 80, containerPort }],
+      portMappings: [{ containerPort }],
     });
 
     const service = new ecs.FargateService(this, `${serviceName}Service`, {
