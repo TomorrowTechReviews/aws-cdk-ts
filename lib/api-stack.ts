@@ -23,7 +23,7 @@ interface ApiStackProps extends StackProps {
 
 export class ApiStack extends Stack {
   private api: apigwv2.HttpApi;
-  private vps: ec2.IVpc;
+  private vpc: ec2.IVpc;
   private lambdaSecurityGroup: ec2.ISecurityGroup;
   private rdsSecretName: string;
   private rdsProxyEndpoint: string
@@ -34,7 +34,7 @@ export class ApiStack extends Stack {
     const ssm = new Parameters(this);
 
     const { vpc, rdsSecretName, subDomainName, domainName, hostedZoneId } = props;
-    this.vps = vpc;
+    this.vpc = vpc;
     this.rdsSecretName = rdsSecretName;
     this.rdsProxyEndpoint = ssm.rdsProxyEndpoint;
 
@@ -97,7 +97,7 @@ export class ApiStack extends Stack {
         RDS_PROXY_HOST: this.rdsProxyEndpoint
       })
       .allowSecretsManager()
-      .connectVPC(this.vps, this.lambdaSecurityGroup)
+      .connectVPC(this.vpc, this.lambdaSecurityGroup)
       .build();
 
     const integration = new HttpLambdaIntegration('ChatsFn', fn);
