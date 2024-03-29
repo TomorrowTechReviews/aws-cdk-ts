@@ -7,6 +7,7 @@ export enum ParameterNames {
   rdsProxyEndpoint = '/rds/proxy/endpoint',
   rdsSecurityGroupId = '/sg/rds',
   lambdaSecurityGroupId = '/sg/lambda',
+  ecsSecurityGroupId = '/sg/ecs',
   acmCertArn = '/acm/cert/arn',
 }
 
@@ -70,5 +71,13 @@ export default class Parameters {
 
   public set acmCertArn(value: string) {
     this.setParameter(ParameterNames.acmCertArn, value);
+  }
+
+  public get ecsSecurityGroupId() {
+    return this.getParameter(ParameterNames.ecsSecurityGroupId);
+  }
+
+  public set ecsSecurityGroupId(value: string) {
+    this.setParameter(ParameterNames.ecsSecurityGroupId, value);
   }
 }

@@ -18,6 +18,7 @@ export class VpcStack extends Stack {
     this.vpc = this.createVpc('custom', natGateways)
     const lambdaSecurityGroup = this.createLambdaSecurityGroup();
     const rdsSecurityGroup = this.createRdsSecurityGroup();
+    const ecsSecurityGroup = this.createEcsSecurityGroup();
 
     rdsSecurityGroup.addIngressRule(
       ec2.Peer.securityGroupId(lambdaSecurityGroup.securityGroupId),
@@ -25,9 +26,16 @@ export class VpcStack extends Stack {
       'Allow access for Lambda'
     );
 
+    rdsSecurityGroup.addIngressRule(
+      ec2.Peer.securityGroupId(ecsSecurityGroup.securityGroupId),
+      ec2.Port.tcp(POSTGRES_PORT),
+      'Allow access for ECS'
+    );
+
     const ssm = new Parameters(this);
     ssm.rdsSecurityGroupId = rdsSecurityGroup.securityGroupId;
     ssm.lambdaSecurityGroupId = lambdaSecurityGroup.securityGroupId;
+    ssm.ecsSecurityGroupId = ecsSecurityGroup.securityGroupId;
   }
 
   private createVpc(vpcName: string, natGateways: number) {
@@ -72,6 +80,18 @@ export class VpcStack extends Stack {
   private createRdsSecurityGroup() {
     const sg = new ec2.SecurityGroup(this, 'rdsSecurityGroup', {
       securityGroupName: 'rds',
+      vpc: this.vpc,
+      allowAllOutbound: true,
+    });
+
+    // Allow all TCP traffic in
+    sg.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.allTcp(), 'All TCP Ports');
+    return sg;
+  }
+
+  private createEcsSecurityGroup() {
+    const sg = new ec2.SecurityGroup(this, 'ecsSecurityGroup', {
+      securityGroupName: 'ecs',
       vpc: this.vpc,
       allowAllOutbound: true,
     });

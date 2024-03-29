@@ -37,11 +37,12 @@ export class EcsStack extends Stack {
 
     const ssm = new Parameters(this);
     const certificate = acm.Certificate.fromCertificateArn(this, 'cert', ssm.acmCertArn)
+    const ecsSecurityGroup = ec2.SecurityGroup.fromSecurityGroupId(this, 'ecsSG', ssm.ecsSecurityGroupId);
 
     this.cluster = this.createCluster('main');
     const alb = this.createAlb('main');
     const listener = this.createAlbListener(alb, certificate);
-    this.createChatService(listener, 256, 512);
+    this.createChatService(listener, ecsSecurityGroup, 256, 512);
     this.createAlbDomain(alb, domainName, hostedZoneId, subDomainName);
   }
 
@@ -94,10 +95,12 @@ export class EcsStack extends Stack {
       imageScanOnPush: true,
     });
 
+    repository.addLifecycleRule({ maxImageCount: 10 });
+
     return repository;
   }
 
-  createChatService(listener: elbv2.ApplicationListener, cpu: number = 256, memory: number = 512) {
+  createChatService(listener: elbv2.ApplicationListener, sg: ec2.ISecurityGroup, cpu: number = 256, memory: number = 512) {
     const ecrTag = 'latest';
     const serviceName = 'chat';
     const containerPort = 80;
@@ -147,6 +150,7 @@ export class EcsStack extends Stack {
     const service = new ecs.FargateService(this, `${serviceName}Service`, {
       serviceName,
       cluster: this.cluster,
+      securityGroups: [sg],
       taskDefinition,
       desiredCount: 1,
       minHealthyPercent: 100,
