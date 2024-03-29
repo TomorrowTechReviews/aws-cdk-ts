@@ -170,10 +170,12 @@ export class EcsStack extends Stack {
     const scaling = service.autoScaleTaskCount({ maxCapacity: 10 });
     scaling.scaleOnCpuUtilization('CpuScaling', {
       targetUtilizationPercent: 50,
+      policyName: 'CpuScaling',
     });
 
     scaling.scaleOnMemoryUtilization('MemoryScaling', {
       targetUtilizationPercent: 50,
+      policyName: 'MemoryScaling',
     });
 
     /**
