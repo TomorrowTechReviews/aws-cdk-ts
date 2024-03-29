@@ -20,7 +20,7 @@
 - Cognito
 - RDS Aurora Postgres + Proxy
 - ALB
-- ECS + ECR
+- ECS Fargate (ARM) + ECR + Auto-Scaling
 - Secrets Manager
 - SSM Parameter Store
 
