@@ -103,8 +103,10 @@ export class EcsStack extends Stack {
   createChatService(listener: elbv2.ApplicationListener, sg: ec2.ISecurityGroup, cpu: number = 256, memory: number = 512) {
     const ecrTag = 'latest';
     const serviceName = 'chat';
-    const containerPort = 80;
-    const envVars = {};
+    const containerPort = 8080;
+    const envVars = {
+      PORT: containerPort.toString(),
+    };
 
     const repository = this.createRepository(serviceName);
 
@@ -148,8 +150,7 @@ export class EcsStack extends Stack {
         mode: ecs.AwsLogDriverMode.NON_BLOCKING,
         logRetention: 7
       }),
-      portMappings: [{ containerPort }],
-      privileged: true,
+      portMappings: [{ hostPort: 80, containerPort }],
     });
 
     const service = new ecs.FargateService(this, `${serviceName}Service`, {
