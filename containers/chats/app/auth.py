@@ -3,12 +3,12 @@ from fastapi import Header, HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer
 import jwt
 from jwt import PyJWKClient
-from os import environ
+from os import getenv
 from .schemas import AuthUser
 
-AWS_USER_POOL_ID = environ.get("AWS_USER_POOL_ID")
-AWS_USER_POOL_CLIENT_ID = environ.get("AWS_USER_POOL_CLIENT_ID")
-AWS_REGION = environ.get("AWS_REGION")
+AWS_USER_POOL_ID = getenv("AWS_USER_POOL_ID")
+AWS_USER_POOL_CLIENT_ID = getenv("AWS_USER_POOL_CLIENT_ID")
+AWS_REGION = getenv("AWS_REGION")
 
 JWT_ALGORITHM = "RS256"
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -17,9 +17,9 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 async def decode_jwt(token: str):
     jwks_uri = f"https://cognito-idp.{AWS_REGION}.amazonaws.com/{AWS_USER_POOL_ID}/.well-known/jwks.json"
     jwk_client = PyJWKClient(uri=jwks_uri)
-    signing_key = jwk_client.get_signing_key_from_jwt(token)
 
     try:
+        signing_key = jwk_client.get_signing_key_from_jwt(token)
         decoded_token = jwt.decode(
             token,
             signing_key.key,

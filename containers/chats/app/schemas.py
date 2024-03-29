@@ -34,3 +34,12 @@ class ChatMessage(ChatMessageBase):
 
 class AuthUser(BaseModel):
     id: str
+
+
+class RdsSecret(BaseModel):
+    password: str
+    username: str
+    dbname: str
+    engine: str
+    port: int
+    host: str
