@@ -31,17 +31,17 @@ const vpc = new VpcStack(app, 'vpc', { env: envEU, natGateways: isProduction ? 2
 
 new AcmStack(app, 'acm', { env: envEU, domainName, hostedZoneId });
 
-// new CognitoStack(app, 'cognito', { env: envEU });
+new CognitoStack(app, 'cognito', { env: envEU });
 
-// new DbStack(app, 'db', {
-//   env: envEU,
-//   vpc: vpc.vpc,
-//   rdsSecretName: 'mainRdsSecret',
-//   writerClass: isProduction ? ec2.InstanceClass.R5 : ec2.InstanceClass.T3,
-//   writerSize: isProduction ? ec2.InstanceSize.LARGE : ec2.InstanceSize.MEDIUM,
-//   readerClass: isProduction ? ec2.InstanceClass.R5 : ec2.InstanceClass.T3,
-//   readerSize: isProduction ? ec2.InstanceSize.LARGE : ec2.InstanceSize.MEDIUM,
-// });
+new DbStack(app, 'db', {
+  env: envEU,
+  vpc: vpc.vpc,
+  rdsSecretName: 'mainRdsSecret',
+  writerClass: isProduction ? ec2.InstanceClass.R5 : ec2.InstanceClass.T3,
+  writerSize: isProduction ? ec2.InstanceSize.LARGE : ec2.InstanceSize.MEDIUM,
+  readerClass: isProduction ? ec2.InstanceClass.R5 : ec2.InstanceClass.T3,
+  readerSize: isProduction ? ec2.InstanceSize.LARGE : ec2.InstanceSize.MEDIUM,
+});
 
 // new ApiStack(app, 'api', {
 //   env: envEU,
