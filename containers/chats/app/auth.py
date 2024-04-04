@@ -4,6 +4,7 @@ from fastapi.security import OAuth2PasswordBearer
 import jwt
 from jwt import PyJWKClient
 from os import getenv
+from functools import lru_cache
 from .schemas import AuthUser
 
 AWS_USER_POOL_ID = getenv("AWS_USER_POOL_ID")
@@ -13,10 +14,13 @@ AWS_REGION = getenv("AWS_REGION")
 JWT_ALGORITHM = "RS256"
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
+@lru_cache(maxsize=1)
+def get_jwks_client():
+    jwks_uri = f"https://cognito-idp.{AWS_REGION}.amazonaws.com/{AWS_USER_POOL_ID}/.well-known/jwks.json"
+    return PyJWKClient(uri=jwks_uri)
 
 async def decode_jwt(token: str):
-    jwks_uri = f"https://cognito-idp.{AWS_REGION}.amazonaws.com/{AWS_USER_POOL_ID}/.well-known/jwks.json"
-    jwk_client = PyJWKClient(uri=jwks_uri)
+    jwk_client = get_jwks_client()
 
     try:
         signing_key = jwk_client.get_signing_key_from_jwt(token)
