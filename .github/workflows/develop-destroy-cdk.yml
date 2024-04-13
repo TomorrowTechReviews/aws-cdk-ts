@@ -1,0 +1,40 @@
+name: (Develop) Destroy CDK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deployment:
+    name: Deployment
+    runs-on: ubuntu-latest
+    environment: develop
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_GITHUB_ROLE }}
+
+      - name: Destroy
+        env:
+          AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
+        run: |
+          export CDK_DEFAULT_ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account')
+          npx cdk destroy --all --require-approval never --ignore-no-stacks
