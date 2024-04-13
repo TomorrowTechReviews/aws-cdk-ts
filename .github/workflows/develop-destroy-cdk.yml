@@ -1,4 +1,4 @@
-name: (Develop) Destroy CDK
+name: (Develop) Destroy CDK [DANGER]
 
 on:
   workflow_dispatch:
