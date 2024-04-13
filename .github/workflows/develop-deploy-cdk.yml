@@ -1,9 +1,14 @@
-name: Deploy Develop Env
+name: (Develop) Deploy CDK
 
 on:
   push:
     branches:
       - main
+    paths:
+      - bin/**
+      - lib/**
+      - helpers/**
+      - functions/**
   workflow_dispatch:
 
 permissions:
@@ -34,9 +39,6 @@ jobs:
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ vars.AWS_GITHUB_ROLE }}
-
-      - name: AWS Account
-        run: aws sts get-caller-identity
 
       - name: Deploy
         env:
