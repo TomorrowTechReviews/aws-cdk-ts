@@ -37,4 +37,4 @@ jobs:
           AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
         run: |
           export CDK_DEFAULT_ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account')
-          npx cdk destroy --all --require-approval never --ignore-no-stacks
+          npx cdk destroy --all --force --require-approval never --ignore-no-stacks
