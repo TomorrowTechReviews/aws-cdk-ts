@@ -11,7 +11,8 @@ RDS_CREDENTIALS = getenv("RDS_CREDENTIALS")
 
 if RDS_CREDENTIALS is not None:
     secret = RdsSecret.model_validate_json(RDS_CREDENTIALS)
-    db_host = getenv("RDS_PROXY_HOST", secret.host)
+    # db_host = getenv("RDS_PROXY_HOST", secret.host) # RDS_PROXY_HOST is not used in this example
+    db_host = secret.host
     DB_URL = f"postgresql://{secret.username}:{secret.password}@{db_host}:{secret.port}/{secret.dbname}"
 else:
     DB_URL = DATABASE_URL
