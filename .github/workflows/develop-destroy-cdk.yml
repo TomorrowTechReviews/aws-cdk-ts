@@ -8,8 +8,8 @@ permissions:
   contents: read
 
 jobs:
-  deployment:
-    name: Deployment
+  destroy:
+    name: Destroy
     runs-on: ubuntu-latest
     environment: develop
 
