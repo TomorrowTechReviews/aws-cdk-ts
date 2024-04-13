@@ -15,6 +15,7 @@ permissions:
 env:
   ECS_CLUSTER: main
   ECS_SERVICE: chat
+  ECS_TASK_DEFINITION: chat
   ECR_REPOSITORY: chat
   CONTAINER_NAME: chat
 
@@ -54,6 +55,13 @@ jobs:
             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
           platforms: linux/arm64
+
+      - name: Download task definition
+        run: |
+          aws ecs describe-task-definition \
+          --task-definition $ECS_TASK_DEFINITION \
+          --query taskDefinition \
+          --region ${{ vars.AWS_REGION }} > ../task-definition.json
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
