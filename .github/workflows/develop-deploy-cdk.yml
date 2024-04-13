@@ -46,5 +46,5 @@ jobs:
         run: |
           export CDK_DEFAULT_ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account')
           # npx cdk deploy --all --require-approval never --ignore-no-stacks
-          npx cdk deploy vpc ecm cognito --require-approval never --ignore-no-stacks
+          npx cdk deploy vpc acm cognito --require-approval never --ignore-no-stacks
           npx cdk deploy db ecs --require-approval never --ignore-no-stacks
