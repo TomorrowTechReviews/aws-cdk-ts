@@ -14,3 +14,7 @@ app.include_router(websocket.router)
 @app.get("/health")
 async def root():
     return "OK"
+
+@app.get("/test")
+async def root():
+    return "v1"
