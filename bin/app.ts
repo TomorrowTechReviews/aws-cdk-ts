@@ -29,11 +29,11 @@ const app = new cdk.App();
 
 const vpc = new VpcStack(app, 'vpc', { env: envEU, natGateways: isProduction ? 2 : 1 });
 
-const acm = new AcmStack(app, 'acm', { env: envEU, domainName, hostedZoneId });
+new AcmStack(app, 'acm', { env: envEU, domainName, hostedZoneId });
 
 new CognitoStack(app, 'cognito', { env: envEU });
 
-const db = new DbStack(app, 'db', {
+new DbStack(app, 'db', {
   env: envEU,
   vpc: vpc.vpc,
   rdsSecretName: 'mainRdsSecret',
@@ -42,8 +42,6 @@ const db = new DbStack(app, 'db', {
   readerClass: isProduction ? ec2.InstanceClass.R5 : ec2.InstanceClass.T3,
   readerSize: isProduction ? ec2.InstanceSize.LARGE : ec2.InstanceSize.MEDIUM,
 });
-
-db.addDependency(vpc);
 
 // new ApiStack(app, 'api', {
 //   env: envEU,
@@ -54,7 +52,7 @@ db.addDependency(vpc);
 //   hostedZoneId,
 // });
 
-const ecs = new EcsStack(app, 'ecs', {
+new EcsStack(app, 'ecs', {
   env: envEU,
   vpc: vpc.vpc,
   rdsSecretName: 'mainRdsSecret',
@@ -62,6 +60,3 @@ const ecs = new EcsStack(app, 'ecs', {
   domainName,
   hostedZoneId,
 });
-
-ecs.addDependency(acm);
-ecs.addDependency(vpc);
