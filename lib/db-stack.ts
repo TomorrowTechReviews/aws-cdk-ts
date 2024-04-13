@@ -38,9 +38,8 @@ export class DbStack extends Stack {
       readerSize
     );
 
-    const proxy = this.createProxy('main', cluster, vpc, rdsSecurityGroup, subnetType);
-    ssm.rdsProxyEndpoint = proxy.endpoint;
-    // ssm.rdsProxyEndpoint = "/";
+    // const proxy = this.createProxy('main', cluster, vpc, rdsSecurityGroup, subnetType);
+    // ssm.rdsProxyEndpoint = proxy.endpoint;
   }
 
   private createCluster(
